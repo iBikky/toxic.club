@@ -123,7 +123,7 @@ public class Toxic {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        LOGGER.info("I am gona gas you kike - Alpha432");
+        LOGGER.info("endr isnt me");
         //HWIDManager.hwidCheck(); // Does the HWID check.
     }
 
