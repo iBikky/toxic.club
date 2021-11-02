@@ -1,0 +1,17 @@
+[
+  {
+    "modid": "toxic",
+    "name": "Toxic.club",
+    "description": "cool pvp client",
+    "version": "0.2",
+    "mcversion": "1.12.2",
+    "logoFile": "toxic.png",
+    "url": "https://discordapp.com/invite/WcAx3ps",
+    "updateUrl": "",
+    "authorList": [
+      "_endr"
+    ],
+    "screenshots": [],
+    "dependencies": []
+  }
+]
