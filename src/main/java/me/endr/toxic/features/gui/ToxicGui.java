@@ -1,13 +1,13 @@
 package me.endr.toxic.features.gui;
 
 import me.endr.toxic.Toxic;
-import me.endr.toxic.features.gui.components.Snow;
 import me.endr.toxic.features.Feature;
 import me.endr.toxic.features.gui.components.Component;
-import me.endr.toxic.features.modules.client.ClickGui;
+import me.endr.toxic.features.gui.components.Snow;
 import me.endr.toxic.features.gui.components.items.Item;
 import me.endr.toxic.features.gui.components.items.buttons.ModuleButton;
 import me.endr.toxic.features.modules.Module;
+import me.endr.toxic.features.modules.client.ClickGui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import org.lwjgl.input.Mouse;
@@ -28,7 +28,7 @@ public class ToxicGui
 
     private final ArrayList<Component> components = new ArrayList();
 
-    private ArrayList<Snow> _snowList = new ArrayList<Snow>();
+    private final ArrayList<Snow> _snowList = new ArrayList<>();
 
     public ToxicGui() {
         this.setInstance();

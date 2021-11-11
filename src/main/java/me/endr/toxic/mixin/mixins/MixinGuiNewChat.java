@@ -15,17 +15,17 @@ public class MixinGuiNewChat
         extends Gui {
     @Redirect(method = {"drawChat"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiNewChat;drawRect(IIIII)V"))
     private void drawRectHook(int left, int top, int right, int bottom, int color) {
-        Gui.drawRect(left, top, right, bottom, ChatModifier.getInstance().isOn() && ChatModifier.getInstance().clean.getValue() != false ? 0 : color);
+        Gui.drawRect(left, top, right, bottom, ChatModifier.getInstance().isOn() && ChatModifier.getInstance().clean.getValue() ? 0 : color);
     }
 
     @Redirect(method = {"setChatLine"}, at = @At(value = "INVOKE", target = "Ljava/util/List;size()I", ordinal = 0))
     public int drawnChatLinesSize(List<ChatLine> list) {
-        return ChatModifier.getInstance().isOn() && ChatModifier.getInstance().infinite.getValue() != false ? -2147483647 : list.size();
+        return ChatModifier.getInstance().isOn() && ChatModifier.getInstance().infinite.getValue() ? -2147483647 : list.size();
     }
 
     @Redirect(method = {"setChatLine"}, at = @At(value = "INVOKE", target = "Ljava/util/List;size()I", ordinal = 2))
     public int chatLinesSize(List<ChatLine> list) {
-        return ChatModifier.getInstance().isOn() && ChatModifier.getInstance().infinite.getValue() != false ? -2147483647 : list.size();
+        return ChatModifier.getInstance().isOn() && ChatModifier.getInstance().infinite.getValue() ? -2147483647 : list.size();
     }
 }
 

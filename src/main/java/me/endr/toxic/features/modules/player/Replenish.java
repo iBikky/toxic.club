@@ -12,9 +12,9 @@ import java.util.ArrayList;
 
 public class Replenish
         extends Module {
-    private final Setting<Integer> delay = this.register(new Setting<Integer>("Delay", 0, 0, 10));
-    private final Setting<Integer> gapStack = this.register(new Setting<Integer>("GapStack", 1, 50, 64));
-    private final Setting<Integer> xpStackAt = this.register(new Setting<Integer>("XPStack", 1, 50, 64));
+    private final Setting<Integer> delay = this.register(new Setting<>("Delay", 0, 0, 10));
+    private final Setting<Integer> gapStack = this.register(new Setting<>("GapStack", 1, 50, 64));
+    private final Setting<Integer> xpStackAt = this.register(new Setting<>("XPStack", 1, 50, 64));
     private final Timer timer = new Timer();
     private final ArrayList<Item> Hotbar = new ArrayList();
 

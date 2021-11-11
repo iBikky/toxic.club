@@ -650,7 +650,7 @@ public class EntityUtill
 
 
     public static Map<String, Integer> getTextRadarPlayers() {
-        Map<String, Integer> output = new HashMap<String, Integer>();
+        Map<String, Integer> output = new HashMap<>();
         DecimalFormat dfHealth = new DecimalFormat("#.#");
         dfHealth.setRoundingMode(RoundingMode.CEILING);
         DecimalFormat dfDistance = new DecimalFormat("#.#");

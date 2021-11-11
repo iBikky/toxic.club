@@ -22,7 +22,7 @@ public abstract class MixinEntityPlayerSP
         super(p_i47378_2_, p_i47378_3_.getGameProfile());
     }
 
-    @Inject(method = {"sendChatMessage"}, at = {@At(value = "HEAD")}, cancellable = true)
+    @Inject(method = {"sendChatMessage"}, at = {@At(value = "HEAD")})
     public void sendChatMessage(String message, CallbackInfo callback) {
         ChatEvent chatEvent = new ChatEvent(message);
         MinecraftForge.EVENT_BUS.post(chatEvent);

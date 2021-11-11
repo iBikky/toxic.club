@@ -27,7 +27,7 @@ public class EnumButton
 
     @Override
     public void update() {
-        this.setHidden(!this.setting.isVisible());
+        this.setHidden(this.setting.isVisible());
     }
 
     @Override

@@ -6,8 +6,8 @@ import me.endr.toxic.features.setting.Setting;
 public class TpsSync
         extends Module {
     private static TpsSync INSTANCE = new TpsSync();
-    public Setting<Boolean> attack = this.register(new Setting<Boolean>("Attack", Boolean.FALSE));
-    public Setting<Boolean> mining = this.register(new Setting<Boolean>("Mine", Boolean.TRUE));
+    public Setting<Boolean> attack = this.register(new Setting<>("Attack", Boolean.FALSE));
+    public Setting<Boolean> mining = this.register(new Setting<>("Mine", Boolean.TRUE));
 
     public TpsSync() {
         super("TpsSync", "Syncs your client with the TPS.", Module.Category.PLAYER, true, false, false);

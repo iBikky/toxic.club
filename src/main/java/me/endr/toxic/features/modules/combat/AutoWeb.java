@@ -19,14 +19,14 @@ import java.util.List;
 public class AutoWeb
         extends Module {
     public static boolean isPlacing = false;
-    private final Setting<Integer> delay = this.register(new Setting<Integer>("Delay", 50, 0, 250));
-    private final Setting<Integer> blocksPerPlace = this.register(new Setting<Integer>("BlocksPerTick", 8, 1, 30));
-    private final Setting<Boolean> packet = this.register(new Setting<Boolean>("PacketPlace", false));
-    private final Setting<Boolean> disable = this.register(new Setting<Boolean>("AutoDisable", false));
-    private final Setting<Boolean> rotate = this.register(new Setting<Boolean>("Rotate", true));
-    private final Setting<Boolean> raytrace = this.register(new Setting<Boolean>("Raytrace", false));
-    private final Setting<Boolean> lowerbody = this.register(new Setting<Boolean>("Feet", true));
-    private final Setting<Boolean> upperBody = this.register(new Setting<Boolean>("Face", false));
+    private final Setting<Integer> delay = this.register(new Setting<>("Delay", 50, 0, 250));
+    private final Setting<Integer> blocksPerPlace = this.register(new Setting<>("BlocksPerTick", 8, 1, 30));
+    private final Setting<Boolean> packet = this.register(new Setting<>("PacketPlace", false));
+    private final Setting<Boolean> disable = this.register(new Setting<>("AutoDisable", false));
+    private final Setting<Boolean> rotate = this.register(new Setting<>("Rotate", true));
+    private final Setting<Boolean> raytrace = this.register(new Setting<>("Raytrace", false));
+    private final Setting<Boolean> lowerbody = this.register(new Setting<>("Feet", true));
+    private final Setting<Boolean> upperBody = this.register(new Setting<>("Face", false));
     private final Timer timer = new Timer();
     public EntityPlayer target;
     private boolean didPlace = false;
@@ -89,10 +89,10 @@ public class AutoWeb
     private List<Vec3d> getPlacements() {
         ArrayList<Vec3d> list = new ArrayList<Vec3d>();
         Vec3d baseVec = this.target.getPositionVector();
-        if (this.lowerbody.getValue().booleanValue()) {
+        if (this.lowerbody.getValue()) {
             list.add(baseVec);
         }
-        if (this.upperBody.getValue().booleanValue()) {
+        if (this.upperBody.getValue()) {
             list.add(baseVec.add(0.0, 1.0, 0.0));
         }
         return list;
@@ -117,7 +117,7 @@ public class AutoWeb
         if (this.isOff()) {
             return true;
         }
-        if (this.disable.getValue().booleanValue() && !this.startPos.equals(EntityUtil.getRoundedBlockPos(AutoWeb.mc.player))) {
+        if (this.disable.getValue() && !this.startPos.equals(EntityUtil.getRoundedBlockPos(AutoWeb.mc.player))) {
             this.disable();
             return true;
         }
@@ -132,7 +132,7 @@ public class AutoWeb
         this.switchItem(true);
         this.isSneaking = EntityUtil.stopSneaking(this.isSneaking);
         this.target = this.getTarget(10.0);
-        return this.target == null || !this.timer.passedMs(this.delay.getValue().intValue());
+        return this.target == null || !this.timer.passedMs(this.delay.getValue());
     }
 
     private EntityPlayer getTarget(double range) {

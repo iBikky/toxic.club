@@ -17,15 +17,15 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class AutoArmor
         extends Module {
-    private final Setting<Integer> delay = this.register(new Setting<Integer>("Delay", 50, 0, 500));
-    private final Setting<Boolean> curse = this.register(new Setting<Boolean>("Vanishing", false));
-    private final Setting<Boolean> mendingTakeOff = this.register(new Setting<Boolean>("AutoMend", false));
-    private final Setting<Integer> closestEnemy = this.register(new Setting<Object>("Enemy", Integer.valueOf(8), Integer.valueOf(1), Integer.valueOf(20), v -> this.mendingTakeOff.getValue()));
-    private final Setting<Integer> repair = this.register(new Setting<Object>("Repair%", Integer.valueOf(80), Integer.valueOf(1), Integer.valueOf(100), v -> this.mendingTakeOff.getValue()));
-    private final Setting<Integer> actions = this.register(new Setting<Integer>("Packets", 3, 1, 12));
+    private final Setting<Integer> delay = this.register(new Setting<>("Delay", 50, 0, 500));
+    private final Setting<Boolean> curse = this.register(new Setting<>("Vanishing", false));
+    private final Setting<Boolean> mendingTakeOff = this.register(new Setting<>("AutoMend", false));
+    private final Setting<Integer> closestEnemy = this.register(new Setting<Object>("Enemy", 8, 1, 20, v -> this.mendingTakeOff.getValue()));
+    private final Setting<Integer> repair = this.register(new Setting<Object>("Repair%", 80, 1, 100, v -> this.mendingTakeOff.getValue()));
+    private final Setting<Integer> actions = this.register(new Setting<>("Packets", 3, 1, 12));
     private final Timer timer = new Timer();
-    private final Queue<InventoryUtil.Task> taskList = new ConcurrentLinkedQueue<InventoryUtil.Task>();
-    private final List<Integer> doneSlots = new ArrayList<Integer>();
+    private final Queue<InventoryUtil.Task> taskList = new ConcurrentLinkedQueue<>();
+    private final List<Integer> doneSlots = new ArrayList<>();
     boolean flag;
 
     public AutoArmor() {
@@ -63,13 +63,13 @@ public class AutoArmor
             int slot3;
             ItemStack chest;
             int slot4;
-            if (this.mendingTakeOff.getValue().booleanValue() && InventoryUtil.holdingItem(ItemExpBottle.class) && AutoArmor.mc.gameSettings.keyBindUseItem.isKeyDown() && AutoArmor.mc.world.playerEntities.stream().noneMatch(e -> e != AutoArmor.mc.player && !Toxic.friendManager.isFriend(e.getName()) && AutoArmor.mc.player.getDistance(e) <= (float) this.closestEnemy.getValue().intValue()) && !this.flag) {
+            if (this.mendingTakeOff.getValue() && InventoryUtil.holdingItem(ItemExpBottle.class) && AutoArmor.mc.gameSettings.keyBindUseItem.isKeyDown() && AutoArmor.mc.world.playerEntities.stream().noneMatch(e -> e != AutoArmor.mc.player && !Toxic.friendManager.isFriend(e.getName()) && AutoArmor.mc.player.getDistance(e) <= (float)this.closestEnemy.getValue()) && !this.flag) {
                 int goods;
                 int dam;
                 int takeOff = 0;
                 for (Map.Entry<Integer, ItemStack> armorSlot : this.getArmor().entrySet()) {
                     ItemStack stack = armorSlot.getValue();
-                    float percent = (float) this.repair.getValue().intValue() / 100.0f;
+                    float percent = (float)this.repair.getValue() / 100.0f;
                     dam = Math.round((float) stack.getMaxDamage() * percent);
                     if (dam >= (goods = stack.getMaxDamage() - stack.getItemDamage())) continue;
                     ++takeOff;
@@ -81,7 +81,7 @@ public class AutoArmor
                     ItemStack itemStack1 = AutoArmor.mc.player.inventoryContainer.getSlot(5).getStack();
                     if (!itemStack1.isEmpty) {
                         int goods2;
-                        float percent = (float) this.repair.getValue().intValue() / 100.0f;
+                        float percent = (float)this.repair.getValue() / 100.0f;
                         int dam2 = Math.round((float) itemStack1.getMaxDamage() * percent);
                         if (dam2 < (goods2 = itemStack1.getMaxDamage() - itemStack1.getItemDamage())) {
                             this.takeOffSlot(5);
@@ -90,7 +90,7 @@ public class AutoArmor
                     ItemStack itemStack2 = AutoArmor.mc.player.inventoryContainer.getSlot(6).getStack();
                     if (!itemStack2.isEmpty) {
                         int goods3;
-                        float percent = (float) this.repair.getValue().intValue() / 100.0f;
+                        float percent = (float)this.repair.getValue() / 100.0f;
                         int dam3 = Math.round((float) itemStack2.getMaxDamage() * percent);
                         if (dam3 < (goods3 = itemStack2.getMaxDamage() - itemStack2.getItemDamage())) {
                             this.takeOffSlot(6);
@@ -98,7 +98,7 @@ public class AutoArmor
                     }
                     ItemStack itemStack3 = AutoArmor.mc.player.inventoryContainer.getSlot(7).getStack();
                     if (!itemStack3.isEmpty) {
-                        float percent = (float) this.repair.getValue().intValue() / 100.0f;
+                        float percent = (float)this.repair.getValue() / 100.0f;
                         dam = Math.round((float) itemStack3.getMaxDamage() * percent);
                         if (dam < (goods = itemStack3.getMaxDamage() - itemStack3.getItemDamage())) {
                             this.takeOffSlot(7);
@@ -107,7 +107,7 @@ public class AutoArmor
                     ItemStack itemStack4 = AutoArmor.mc.player.inventoryContainer.getSlot(8).getStack();
                     if (!itemStack4.isEmpty) {
                         int goods4;
-                        float percent = (float) this.repair.getValue().intValue() / 100.0f;
+                        float percent = (float)this.repair.getValue() / 100.0f;
                         int dam4 = Math.round((float) itemStack4.getMaxDamage() * percent);
                         if (dam4 < (goods4 = itemStack4.getMaxDamage() - itemStack4.getItemDamage())) {
                             this.takeOffSlot(8);
@@ -131,7 +131,7 @@ public class AutoArmor
                 this.getSlotOn(8, slot);
             }
         }
-        if (this.timer.passedMs((int) ((float) this.delay.getValue().intValue() * Toxic.serverManager.getTpsFactor()))) {
+        if (this.timer.passedMs((int) ((float)this.delay.getValue() * Toxic.serverManager.getTpsFactor()))) {
             if (!this.taskList.isEmpty()) {
                 for (int i = 0; i < this.actions.getValue(); ++i) {
                     InventoryUtil.Task task = this.taskList.poll();

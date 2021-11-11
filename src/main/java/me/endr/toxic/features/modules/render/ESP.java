@@ -21,15 +21,15 @@ import java.awt.*;
 public class ESP
         extends Module {
     private static ESP INSTANCE = new ESP();
-    private final Setting<Boolean> items = this.register(new Setting<Boolean>("Items", false));
-    private final Setting<Boolean> xporbs = this.register(new Setting<Boolean>("XpOrbs", false));
-    private final Setting<Boolean> xpbottles = this.register(new Setting<Boolean>("XpBottles", false));
-    private final Setting<Boolean> pearl = this.register(new Setting<Boolean>("Pearls", false));
-    private final Setting<Integer> red = this.register(new Setting<Integer>("Red", 255, 0, 255));
-    private final Setting<Integer> green = this.register(new Setting<Integer>("Green", 255, 0, 255));
-    private final Setting<Integer> blue = this.register(new Setting<Integer>("Blue", 255, 0, 255));
-    private final Setting<Integer> boxAlpha = this.register(new Setting<Integer>("BoxAlpha", 120, 0, 255));
-    private final Setting<Integer> alpha = this.register(new Setting<Integer>("Alpha", 255, 0, 255));
+    private final Setting<Boolean> items = this.register(new Setting<>("Items", false));
+    private final Setting<Boolean> xporbs = this.register(new Setting<>("XpOrbs", false));
+    private final Setting<Boolean> xpbottles = this.register(new Setting<>("XpBottles", false));
+    private final Setting<Boolean> pearl = this.register(new Setting<>("Pearls", false));
+    private final Setting<Integer> red = this.register(new Setting<>("Red", 255, 0, 255));
+    private final Setting<Integer> green = this.register(new Setting<>("Green", 255, 0, 255));
+    private final Setting<Integer> blue = this.register(new Setting<>("Blue", 255, 0, 255));
+    private final Setting<Integer> boxAlpha = this.register(new Setting<>("BoxAlpha", 120, 0, 255));
+    private final Setting<Integer> alpha = this.register(new Setting<>("Alpha", 255, 0, 255));
 
     public ESP() {
         super("ESP", "Renders a nice ESP.", Module.Category.RENDER, false, false, false);
@@ -52,7 +52,7 @@ public class ESP
         AxisAlignedBB bb;
         Vec3d interp;
         int i;
-        if (this.items.getValue().booleanValue()) {
+        if (this.items.getValue()) {
             i = 0;
             for (Entity entity : ESP.mc.world.loadedEntityList) {
                 if (!(entity instanceof EntityItem) || !(ESP.mc.player.getDistanceSq(entity) < 2500.0)) continue;
@@ -67,7 +67,7 @@ public class ESP
                 GL11.glEnable(2848);
                 GL11.glHint(3154, 4354);
                 GL11.glLineWidth(1.0f);
-                RenderGlobal.renderFilledBox(bb, (float) this.red.getValue().intValue() / 255.0f, (float) this.green.getValue().intValue() / 255.0f, (float) this.blue.getValue().intValue() / 255.0f, (float) this.boxAlpha.getValue().intValue() / 255.0f);
+                RenderGlobal.renderFilledBox(bb, (float)this.red.getValue() / 255.0f, (float)this.green.getValue() / 255.0f, (float)this.blue.getValue() / 255.0f, (float)this.boxAlpha.getValue() / 255.0f);
                 GL11.glDisable(2848);
                 GlStateManager.depthMask(true);
                 GlStateManager.enableDepth();
@@ -79,7 +79,7 @@ public class ESP
                 break;
             }
         }
-        if (this.xporbs.getValue().booleanValue()) {
+        if (this.xporbs.getValue()) {
             i = 0;
             for (Entity entity : ESP.mc.world.loadedEntityList) {
                 if (!(entity instanceof EntityXPOrb) || !(ESP.mc.player.getDistanceSq(entity) < 2500.0)) continue;
@@ -94,7 +94,7 @@ public class ESP
                 GL11.glEnable(2848);
                 GL11.glHint(3154, 4354);
                 GL11.glLineWidth(1.0f);
-                RenderGlobal.renderFilledBox(bb, (float) this.red.getValue().intValue() / 255.0f, (float) this.green.getValue().intValue() / 255.0f, (float) this.blue.getValue().intValue() / 255.0f, (float) this.boxAlpha.getValue().intValue() / 255.0f);
+                RenderGlobal.renderFilledBox(bb, (float)this.red.getValue() / 255.0f, (float)this.green.getValue() / 255.0f, (float)this.blue.getValue() / 255.0f, (float)this.boxAlpha.getValue() / 255.0f);
                 GL11.glDisable(2848);
                 GlStateManager.depthMask(true);
                 GlStateManager.enableDepth();
@@ -106,7 +106,7 @@ public class ESP
                 break;
             }
         }
-        if (this.pearl.getValue().booleanValue()) {
+        if (this.pearl.getValue()) {
             i = 0;
             for (Entity entity : ESP.mc.world.loadedEntityList) {
                 if (!(entity instanceof EntityEnderPearl) || !(ESP.mc.player.getDistanceSq(entity) < 2500.0)) continue;
@@ -121,7 +121,7 @@ public class ESP
                 GL11.glEnable(2848);
                 GL11.glHint(3154, 4354);
                 GL11.glLineWidth(1.0f);
-                RenderGlobal.renderFilledBox(bb, (float) this.red.getValue().intValue() / 255.0f, (float) this.green.getValue().intValue() / 255.0f, (float) this.blue.getValue().intValue() / 255.0f, (float) this.boxAlpha.getValue().intValue() / 255.0f);
+                RenderGlobal.renderFilledBox(bb, (float)this.red.getValue() / 255.0f, (float)this.green.getValue() / 255.0f, (float)this.blue.getValue() / 255.0f, (float)this.boxAlpha.getValue() / 255.0f);
                 GL11.glDisable(2848);
                 GlStateManager.depthMask(true);
                 GlStateManager.enableDepth();
@@ -133,7 +133,7 @@ public class ESP
                 break;
             }
         }
-        if (this.xpbottles.getValue().booleanValue()) {
+        if (this.xpbottles.getValue()) {
             i = 0;
             for (Entity entity : ESP.mc.world.loadedEntityList) {
                 if (!(entity instanceof EntityExpBottle) || !(ESP.mc.player.getDistanceSq(entity) < 2500.0)) continue;
@@ -148,7 +148,7 @@ public class ESP
                 GL11.glEnable(2848);
                 GL11.glHint(3154, 4354);
                 GL11.glLineWidth(1.0f);
-                RenderGlobal.renderFilledBox(bb, (float) this.red.getValue().intValue() / 255.0f, (float) this.green.getValue().intValue() / 255.0f, (float) this.blue.getValue().intValue() / 255.0f, (float) this.boxAlpha.getValue().intValue() / 255.0f);
+                RenderGlobal.renderFilledBox(bb, (float)this.red.getValue() / 255.0f, (float)this.green.getValue() / 255.0f, (float)this.blue.getValue() / 255.0f, (float)this.boxAlpha.getValue() / 255.0f);
                 GL11.glDisable(2848);
                 GlStateManager.depthMask(true);
                 GlStateManager.enableDepth();

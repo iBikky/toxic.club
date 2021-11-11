@@ -33,8 +33,8 @@ import java.util.stream.Collectors;
 public class ModuleManager
         extends Feature {
     public ArrayList<Module> modules = new ArrayList();
-    public List<Module> sortedModules = new ArrayList<Module>();
-    public List<String> sortedModulesABC = new ArrayList<String>();
+    public List<Module> sortedModules = new ArrayList<>();
+    public List<String> sortedModulesABC = new ArrayList<>();
     public Animation animationThread;
 
     public void init() {
@@ -158,7 +158,7 @@ public class ModuleManager
     }
 
     public ArrayList<Module> getEnabledModules() {
-        ArrayList<Module> enabledModules = new ArrayList<Module>();
+        ArrayList<Module> enabledModules = new ArrayList<>();
         for (Module module : this.modules) {
             if (!module.isEnabled()) continue;
             enabledModules.add(module);
@@ -167,7 +167,7 @@ public class ModuleManager
     }
 
     public ArrayList<String> getEnabledModulesName() {
-        ArrayList<String> enabledModules = new ArrayList<String>();
+        ArrayList<String> enabledModules = new ArrayList<>();
         for (Module module : this.modules) {
             if (!module.isEnabled() || !module.isDrawn()) continue;
             enabledModules.add(module.getFullArrayString());
@@ -176,7 +176,7 @@ public class ModuleManager
     }
 
     public ArrayList<Module> getModulesByCategory(Module.Category category) {
-        ArrayList<Module> modulesCategory = new ArrayList<Module>();
+        ArrayList<Module> modulesCategory = new ArrayList<>();
         this.modules.forEach(module -> {
             if (module.getCategory() == category) {
                 modulesCategory.add(module);
@@ -215,7 +215,7 @@ public class ModuleManager
     }
 
     public void sortModulesABC() {
-        this.sortedModulesABC = new ArrayList<String>(this.getEnabledModulesName());
+        this.sortedModulesABC = new ArrayList<>(this.getEnabledModulesName());
         this.sortedModulesABC.sort(String.CASE_INSENSITIVE_ORDER);
     }
 
@@ -274,7 +274,7 @@ public class ModuleManager
                         module.sliding = true;
                         continue;
                     }
-                    if (!module.isDisabled() || HUD.getInstance().animationHorizontalTime.getValue() == 1) continue;
+                    if (module.isDisabled() || HUD.getInstance().animationHorizontalTime.getValue() == 1) continue;
                     if (module.arrayListOffset < (float) ModuleManager.this.renderer.getStringWidth(text) && Util.mc.world != null) {
                         module.arrayListOffset += module.offset;
                         module.sliding = true;
@@ -294,7 +294,7 @@ public class ModuleManager
                         module.sliding = true;
                         continue;
                     }
-                    if (!module.isDisabled() || HUD.getInstance().animationHorizontalTime.getValue() == 1) continue;
+                    if (module.isDisabled() || HUD.getInstance().animationHorizontalTime.getValue() == 1) continue;
                     if (module.arrayListOffset < (float) ModuleManager.this.renderer.getStringWidth(text) && Util.mc.world != null) {
                         module.arrayListOffset += module.offset;
                         module.sliding = true;

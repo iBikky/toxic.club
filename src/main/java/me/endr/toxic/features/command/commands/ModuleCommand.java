@@ -20,11 +20,11 @@ public class ModuleCommand
         if (commands.length == 1) {
             ModuleCommand.sendMessage("Modules: ");
             for (Module.Category category : Toxic.moduleManager.getCategories()) {
-                String modules = category.getName() + ": ";
+                StringBuilder modules = new StringBuilder(category.getName() + ": ");
                 for (Module module1 : Toxic.moduleManager.getModulesByCategory(category)) {
-                    modules = modules + (module1.isEnabled() ? ChatFormatting.GREEN : ChatFormatting.RED) + module1.getName() + ChatFormatting.WHITE + ", ";
+                    modules.append(module1.isEnabled() ? ChatFormatting.GREEN : ChatFormatting.RED).append(module1.getName()).append(ChatFormatting.WHITE).append(", ");
                 }
-                ModuleCommand.sendMessage(modules);
+                ModuleCommand.sendMessage(modules.toString());
             }
             return;
         }

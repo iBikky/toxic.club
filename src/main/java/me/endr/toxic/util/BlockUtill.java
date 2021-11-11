@@ -70,8 +70,7 @@ public class BlockUtill
     public static EnumFacing getFirstFacing(BlockPos pos) {
         Iterator<EnumFacing> iterator = BlockUtill.getPossibleSides(pos).iterator();
         if (iterator.hasNext()) {
-            EnumFacing facing = iterator.next();
-            return facing;
+            return iterator.next();
         }
         return null;
     }
@@ -386,7 +385,9 @@ public class BlockUtill
 
     public static boolean isValidBlock(BlockPos pos) {
         Block block = BlockUtill.mc.world.getBlockState(pos).getBlock();
-        return !(block instanceof BlockLiquid) && block.getMaterial(null) != Material.AIR;
+        if (block instanceof BlockLiquid) return false;
+        assert block != null;
+        return block.getMaterial(null) != Material.AIR;
     }
 
     public static boolean isScaffoldPos(BlockPos pos) {

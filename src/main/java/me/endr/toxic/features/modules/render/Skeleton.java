@@ -19,9 +19,9 @@ import java.util.HashMap;
 public class Skeleton
         extends Module {
     private static final HashMap<EntityPlayer, float[][]> entities = new HashMap();
-    private final Setting<Float> lineWidth = this.register(new Setting<Float>("LineWidth", Float.valueOf(1.0f), Float.valueOf(0.1f), Float.valueOf(5.0f)));
-    private final Setting<Boolean> invisibles = this.register(new Setting<Boolean>("Invisibles", false));
-    private final Setting<Integer> alpha = this.register(new Setting<Integer>("Alpha", 255, 0, 255));
+    private final Setting<Float> lineWidth = this.register(new Setting<>("LineWidth", 1.0f, 0.1f, 5.0f));
+    private final Setting<Boolean> invisibles = this.register(new Setting<>("Invisibles", false));
+    private final Setting<Integer> alpha = this.register(new Setting<>("Alpha", 255, 0, 255));
 
     public Skeleton() {
         super("Skeleton", "Draws a skeleton inside the player.", Module.Category.RENDER, false, false, false);
@@ -54,21 +54,21 @@ public class Skeleton
     }
 
     private void drawSkeleton(Render3DEvent event, EntityPlayer e) {
-        if (!BlockUtil.isPosInFov(new BlockPos(e.posX, e.posY, e.posZ)).booleanValue()) {
+        if (!BlockUtil.isPosInFov(new BlockPos(e.posX, e.posY, e.posZ))) {
             return;
         }
-        if (e.isInvisible() && !this.invisibles.getValue().booleanValue()) {
+        if (e.isInvisible() && !this.invisibles.getValue()) {
             return;
         }
         float[][] entPos = entities.get(e);
         if (entPos != null && e.isEntityAlive() && !e.isDead && e != Skeleton.mc.player && !e.isPlayerSleeping()) {
             GL11.glPushMatrix();
             GL11.glEnable(2848);
-            GL11.glLineWidth(this.lineWidth.getValue().floatValue());
+            GL11.glLineWidth(this.lineWidth.getValue());
             if (Toxic.friendManager.isFriend(e.getName())) {
-                GlStateManager.color(0.0f, 191.0f, 230.0f, (float) this.alpha.getValue().intValue());
+                GlStateManager.color(0.0f, 191.0f, 230.0f, (float)this.alpha.getValue());
             } else {
-                GlStateManager.color((float) ClickGui.getInstance().red.getValue().intValue() / 255.0f, (float) ClickGui.getInstance().green.getValue().intValue() / 255.0f, (float) ClickGui.getInstance().blue.getValue().intValue() / 255.0f, (float) this.alpha.getValue().intValue());
+                GlStateManager.color((float)ClickGui.getInstance().red.getValue() / 255.0f, (float)ClickGui.getInstance().green.getValue() / 255.0f, (float)ClickGui.getInstance().blue.getValue() / 255.0f, (float)this.alpha.getValue());
             }
             Vec3d vec = this.getVec3(event, e);
             double x = vec.x - Skeleton.mc.getRenderManager().renderPosX;

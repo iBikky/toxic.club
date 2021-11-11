@@ -83,6 +83,7 @@ public class DamageUtil
             damage = Math.max(damage, 0.0f);
             return damage;
         }
+        assert entity != null;
         damage = CombatRules.getDamageAfterAbsorb(damage, (float) entity.getTotalArmorValue(), (float) entity.getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).getAttributeValue());
         return damage;
     }

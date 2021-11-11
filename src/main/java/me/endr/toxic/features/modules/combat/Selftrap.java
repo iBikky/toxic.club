@@ -18,12 +18,12 @@ import java.util.*;
 
 public class Selftrap
         extends Module {
-    private final Setting<Integer> blocksPerTick = this.register(new Setting<Integer>("BlocksPerTick", 8, 1, 20));
-    private final Setting<Integer> delay = this.register(new Setting<Integer>("Delay", 50, 0, 250));
-    private final Setting<Boolean> rotate = this.register(new Setting<Boolean>("Rotate", true));
-    private final Setting<Integer> disableTime = this.register(new Setting<Integer>("DisableTime", 200, 50, 300));
-    private final Setting<Boolean> disable = this.register(new Setting<Boolean>("AutoDisable", true));
-    private final Setting<Boolean> packet = this.register(new Setting<Boolean>("PacketPlace", false));
+    private final Setting<Integer> blocksPerTick = this.register(new Setting<>("BlocksPerTick", 8, 1, 20));
+    private final Setting<Integer> delay = this.register(new Setting<>("Delay", 50, 0, 250));
+    private final Setting<Boolean> rotate = this.register(new Setting<>("Rotate", true));
+    private final Setting<Integer> disableTime = this.register(new Setting<>("DisableTime", 200, 50, 300));
+    private final Setting<Boolean> disable = this.register(new Setting<>("AutoDisable", true));
+    private final Setting<Boolean> packet = this.register(new Setting<>("PacketPlace", false));
     private final Timer offTimer = new Timer();
     private final Timer timer = new Timer();
     private final Map<BlockPos, Integer> retries = new HashMap<BlockPos, Integer>();
@@ -46,14 +46,14 @@ public class Selftrap
 
     @Override
     public void onTick() {
-        if (this.isOn() && (this.blocksPerTick.getValue() != 1 || !this.rotate.getValue().booleanValue())) {
+        if (this.isOn() && (this.blocksPerTick.getValue() != 1 || !this.rotate.getValue())) {
             this.doHoleFill();
         }
     }
 
     @SubscribeEvent
     public void onUpdateWalkingPlayer(UpdateWalkingPlayerEvent event) {
-        if (this.isOn() && event.getStage() == 0 && this.blocksPerTick.getValue() == 1 && this.rotate.getValue().booleanValue()) {
+        if (this.isOn() && event.getStage() == 0 && this.blocksPerTick.getValue() == 1 && this.rotate.getValue()) {
             this.doHoleFill();
         }
     }
@@ -107,7 +107,7 @@ public class Selftrap
 
     private void placeBlock(BlockPos pos) {
         if (this.blocksThisTick < this.blocksPerTick.getValue()) {
-            boolean smartRotate = this.blocksPerTick.getValue() == 1 && this.rotate.getValue() != false;
+            boolean smartRotate = this.blocksPerTick.getValue() == 1 && this.rotate.getValue();
             int originalSlot = Selftrap.mc.player.inventory.currentItem;
             int obbySlot = InventoryUtil.findHotbarBlock(BlockObsidian.class);
             int eChestSot = InventoryUtil.findHotbarBlock(BlockEnderChest.class);
@@ -144,11 +144,11 @@ public class Selftrap
             this.offTimer.reset();
             return true;
         }
-        if (this.disable.getValue().booleanValue() && this.offTimer.passedMs(this.disableTime.getValue().intValue())) {
+        if (this.disable.getValue() && this.offTimer.passedMs(this.disableTime.getValue())) {
             this.disable();
             return true;
         }
-        return !this.timer.passedMs(this.delay.getValue().intValue());
+        return !this.timer.passedMs(this.delay.getValue());
     }
 }
 

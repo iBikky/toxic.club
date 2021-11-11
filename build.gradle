@@ -4,7 +4,7 @@ buildscript {
         jcenter()
         maven {
             name = 'forge'
-            url = 'http://files.minecraftforge.net/maven'
+            url = 'https://files.minecraftforge.net/maven'
         }
         maven {
             name = 'SpongePowered'
@@ -55,13 +55,8 @@ dependencies {
         exclude module: 'gson'
         exclude module: 'commons-io'
     }
-
     compile 'club.minnced:java-discord-rpc:2.0.2'
-    //compile 'com.googlecode.json-simple:json-simple:1.1.1'
-
 }
-
-
 
 task getDeps(type: Copy) {
     from sourceSets.main.runtimeClasspath
@@ -87,8 +82,7 @@ shadowJar {
         include(dependency('com.googlecode.json-simple:json-simple:1.1.1'))
         include(dependency('org.spongepowered:mixin'))
     }
-    exclude 'dummyThing'
-    exclude 'LICENSE.txt'
+    exclude 'dummyThing', 'LICENSE.txt'
     classifier = 'release'
 }
 

@@ -170,7 +170,7 @@ public class Setting<T> {
     }
 
     public void setEnumValue(String value) {
-        for (Enum e : (Enum[]) ((Enum) this.value).getClass().getEnumConstants()) {
+        for (Enum e : ((Enum) this.value).getClass().getEnumConstants()) {
             if (!e.name().equalsIgnoreCase(value)) continue;
             this.value = (T) e;
         }
@@ -247,9 +247,9 @@ public class Setting<T> {
 
     public boolean isVisible() {
         if (this.visibility == null) {
-            return true;
+            return false;
         }
-        return this.visibility.test(this.getValue());
+        return !this.visibility.test(this.getValue());
     }
 }
 

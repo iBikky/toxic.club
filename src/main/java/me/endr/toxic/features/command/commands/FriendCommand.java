@@ -17,24 +17,22 @@ public class FriendCommand
             if (Toxic.friendManager.getFriends().isEmpty()) {
                 FriendCommand.sendMessage("Friend list empty D:.");
             } else {
-                String f = "Friends: ";
+                StringBuilder f = new StringBuilder("Friends: ");
                 for (FriendManager.Friend friend : Toxic.friendManager.getFriends()) {
                     try {
-                        f = f + friend.getUsername() + ", ";
-                    } catch (Exception exception) {
+                        f.append(friend.getUsername()).append(", ");
+                    } catch (Exception ignored) {
                     }
                 }
-                FriendCommand.sendMessage(f);
+                FriendCommand.sendMessage(f.toString());
             }
             return;
         }
         if (commands.length == 2) {
-            switch (commands[0]) {
-                case "reset": {
-                    Toxic.friendManager.onLoad();
-                    FriendCommand.sendMessage("Friends got reset.");
-                    return;
-                }
+            if ("reset".equals(commands[0])) {
+                Toxic.friendManager.onLoad();
+                FriendCommand.sendMessage("Friends got reset.");
+                return;
             }
             FriendCommand.sendMessage(commands[0] + (Toxic.friendManager.isFriend(commands[0]) ? " is friended." : " isn't friended."));
             return;

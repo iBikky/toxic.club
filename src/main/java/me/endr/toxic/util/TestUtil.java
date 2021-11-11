@@ -56,7 +56,7 @@ public class TestUtil {
             EnumFacing[] facings;
             for (EnumFacing f : facings = EnumFacing.values()) {
                 Block neighborBlock = TestUtil.mc.world.getBlockState(pos.offset(f)).getBlock();
-                Vec3d vec = new Vec3d((double) pos.getX() + 0.5 + (double) f.getXOffset() * 0.5, (double) pos.getY() + 0.5 + (double) f.getYOffset() * 0.5, (double) pos.getZ() + 0.5 + (double) f.getZOffset() * 0.5);
+                Vec3d vec = new Vec3d(pos.getX() + 0.5 + (double) f.getXOffset() * 0.5, pos.getY() + 0.5 + (double) f.getYOffset() * 0.5, pos.getZ() + 0.5 + (double) f.getZOffset() * 0.5);
                 if (emptyBlocks.contains(neighborBlock) || !(TestUtil.mc.player.getPositionEyes(mc.getRenderPartialTicks()).distanceTo(vec) <= 4.25))
                     continue;
                 float[] rot = new float[]{TestUtil.mc.player.rotationYaw, TestUtil.mc.player.rotationPitch};
@@ -96,7 +96,7 @@ public class TestUtil {
             EnumFacing[] facings;
             for (EnumFacing f : facings = EnumFacing.values()) {
                 if (emptyBlocks.contains(TestUtil.mc.world.getBlockState(pos.offset(f)).getBlock())) continue;
-                Vec3d vec3d = new Vec3d((double) pos.getX() + 0.5 + (double) f.getXOffset() * 0.5, (double) pos.getY() + 0.5 + (double) f.getYOffset() * 0.5, (double) pos.getZ() + 0.5 + (double) f.getZOffset() * 0.5);
+                Vec3d vec3d = new Vec3d(pos.getX() + 0.5 + (double) f.getXOffset() * 0.5, pos.getY() + 0.5 + (double) f.getYOffset() * 0.5, pos.getZ() + 0.5 + (double) f.getZOffset() * 0.5);
                 if (!(TestUtil.mc.player.getPositionEyes(mc.getRenderPartialTicks()).distanceTo(vec3d) <= 4.25))
                     continue;
                 return true;

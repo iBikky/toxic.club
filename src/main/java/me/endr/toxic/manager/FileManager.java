@@ -52,7 +52,7 @@ public class FileManager
     }
 
     private String[] expandPath(String fullPath) {
-        return fullPath.split(":?\\\\\\\\|\\/");
+        return fullPath.split(":?\\\\\\\\|/");
     }
 
     private Stream<String> expandPaths(String... paths) {
