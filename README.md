@@ -5,4 +5,4 @@
 [![Downloads](https://img.shields.io/github/downloads/iBikky/toxic.club/total?color=9900ee)](https://github.com/iBikky/toxic.club/releases/tag/0.2)
 
 # toxic.club
-cool ovvey skid pvp client made by teej and ibikky, basically oyvey but better.
+dead asf oyvey skid
