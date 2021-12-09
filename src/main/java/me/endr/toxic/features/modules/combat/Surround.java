@@ -20,11 +20,11 @@ import java.util.*;
 public class Surround
         extends Module {
     public static boolean isPlacing = false;
-    private final Setting<Integer> blocksPerTick = this.register(new Setting<Integer>("BlocksPerTick", 12, 1, 20));
-    private final Setting<Integer> delay = this.register(new Setting<Integer>("Delay", 0, 0, 250));
-    private final Setting<Boolean> noGhost = this.register(new Setting<Boolean>("PacketPlace", false));
-    private final Setting<Boolean> center = this.register(new Setting<Boolean>("TPCenter", false));
-    private final Setting<Boolean> rotate = this.register(new Setting<Boolean>("Rotate", true));
+    private final Setting<Integer> blocksPerTick = this.register(new Setting<>("BlocksPerTick", 12, 1, 20));
+    private final Setting<Integer> delay = this.register(new Setting<>("Delay", 0, 0, 250));
+    private final Setting<Boolean> noGhost = this.register(new Setting<>("PacketPlace", false));
+    private final Setting<Boolean> center = this.register(new Setting<>("TPCenter", false));
+    private final Setting<Boolean> rotate = this.register(new Setting<>("Rotate", true));
     private final Timer timer = new Timer();
     private final Timer retryTimer = new Timer();
     private final Set<Vec3d> extendingBlocks = new HashSet<Vec3d>();
@@ -51,7 +51,7 @@ public class Surround
         }
         this.lastHotbarSlot = Surround.mc.player.inventory.currentItem;
         this.startPos = EntityUtil.getRoundedBlockPos(Surround.mc.player);
-        if (this.center.getValue().booleanValue()) {
+        if (this.center.getValue()) {
             Toxic.positionManager.setPositionPacket((double) this.startPos.getX() + 0.5, this.startPos.getY(), (double) this.startPos.getZ() + 0.5, true, true, true);
         }
         this.retries.clear();
@@ -108,10 +108,9 @@ public class Surround
         if (this.extendingBlocks.size() == 2 && this.extenders < 1) {
             Vec3d[] array = new Vec3d[2];
             int i = 0;
-            Iterator<Vec3d> iterator = this.extendingBlocks.iterator();
-            while (iterator.hasNext()) {
+            for (Vec3d extendingBlock : this.extendingBlocks) {
                 Vec3d vec3d;
-                array[i] = vec3d = iterator.next();
+                array[i] = vec3d = extendingBlock;
                 ++i;
             }
             int placementsBefore = this.placements;
@@ -212,7 +211,7 @@ public class Surround
             this.disable();
             return true;
         }
-        return !this.timer.passedMs(this.delay.getValue().intValue());
+        return !this.timer.passedMs(this.delay.getValue());
     }
 
     private void placeBlock(BlockPos pos) {

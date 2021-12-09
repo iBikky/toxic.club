@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public class FriendManager
         extends Feature {
-    private List<Friend> friends = new ArrayList<Friend>();
+    private List<Friend> friends = new ArrayList<>();
 
     public FriendManager() {
         super("Friends");
@@ -45,7 +45,7 @@ public class FriendManager
     }
 
     public void onLoad() {
-        this.friends = new ArrayList<Friend>();
+        this.friends = new ArrayList<>();
         this.clearSettings();
     }
 
@@ -53,7 +53,7 @@ public class FriendManager
         this.clearSettings();
         this.cleanFriends();
         for (Friend friend : this.friends) {
-            this.register(new Setting<String>(friend.getUuid().toString(), friend.getUsername()));
+            this.register(new Setting<>(friend.getUuid().toString(), friend.getUsername()));
         }
     }
 
@@ -69,8 +69,7 @@ public class FriendManager
     public Friend getFriendByName(String input) {
         UUID uuid = PlayerUtil.getUUIDFromName(input);
         if (uuid != null) {
-            Friend friend = new Friend(input, uuid);
-            return friend;
+            return new Friend(input, uuid);
         }
         return null;
     }

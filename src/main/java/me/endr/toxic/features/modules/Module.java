@@ -17,9 +17,9 @@ public class Module
         extends Feature {
     private final String description;
     private final Category category;
-    public Setting<Boolean> enabled = this.register(new Setting<Boolean>("Enabled", false));
-    public Setting<Boolean> drawn = this.register(new Setting<Boolean>("Drawn", true));
-    public Setting<Bind> bind = this.register(new Setting<Bind>("Keybind", new Bind(-1)));
+    public Setting<Boolean> enabled = this.register(new Setting<>("Enabled", false));
+    public Setting<Boolean> drawn = this.register(new Setting<>("Drawn", true));
+    public Setting<Bind> bind = this.register(new Setting<>("Keybind", new Bind(-1)));
     public Setting<String> displayName;
     public boolean hasListener;
     public boolean alwaysListening;
@@ -32,7 +32,7 @@ public class Module
 
     public Module(String name, String description, Category category, boolean hasListener, boolean hidden, boolean alwaysListening) {
         super(name);
-        this.displayName = this.register(new Setting<String>("DisplayName", name));
+        this.displayName = this.register(new Setting<>("DisplayName", name));
         this.description = description;
         this.category = category;
         this.hasListener = hasListener;
@@ -86,7 +86,7 @@ public class Module
     }
 
     public boolean isOff() {
-        return this.enabled.getValue() == false;
+        return !this.enabled.getValue();
     }
 
     public void setEnabled(boolean enabled) {
@@ -101,7 +101,7 @@ public class Module
         this.enabled.setValue(Boolean.TRUE);
         this.onToggle();
         this.onEnable();
-        if (HUD.getInstance().notifyToggles.getValue().booleanValue()) {
+        if (HUD.getInstance().notifyToggles.getValue()) {
             TextComponentString text = new TextComponentString(Toxic.commandManager.getClientMessage() + " " + ChatFormatting.GREEN + this.getDisplayName() + " toggled on.");
             Module.mc.ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(text, 1);
         }
@@ -115,7 +115,7 @@ public class Module
             MinecraftForge.EVENT_BUS.unregister(this);
         }
         this.enabled.setValue(false);
-        if (HUD.getInstance().notifyToggles.getValue().booleanValue()) {
+        if (HUD.getInstance().notifyToggles.getValue()) {
             TextComponentString text = new TextComponentString(Toxic.commandManager.getClientMessage() + " " + ChatFormatting.RED + this.getDisplayName() + " toggled off.");
             Module.mc.ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(text, 1);
         }

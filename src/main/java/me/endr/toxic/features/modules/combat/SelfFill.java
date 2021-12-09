@@ -10,7 +10,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class SelfFill
         extends Module {
-    private final Setting<Boolean> packet = this.register(new Setting<Boolean>("PacketPlace", Boolean.FALSE));
+    private final Setting<Boolean> packet = this.register(new Setting<>("PacketPlace", Boolean.FALSE));
 
     public SelfFill() {
         super("SelfFill", "SelfFills yourself in a hole.", Module.Category.COMBAT, true, false, true);

@@ -1,10 +1,9 @@
 package me.endr.toxic.features.modules.misc;
 
-import me.endr.toxic.Toxic;
 import me.endr.toxic.event.events.PacketEvent;
+import me.endr.toxic.features.command.Command;
 import me.endr.toxic.features.modules.Module;
 import me.endr.toxic.features.setting.Setting;
-import me.endr.toxic.features.command.Command;
 import net.minecraft.item.*;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketPlayer;
@@ -43,7 +42,7 @@ public class BowBomb extends Module {
         if (event.getStage() != 0) return;
 
         if (event.getPacket() instanceof CPacketPlayerDigging) {
-            CPacketPlayerDigging packet = (CPacketPlayerDigging) event.getPacket();
+            CPacketPlayerDigging packet = event.getPacket();
 
             if (packet.getAction() == CPacketPlayerDigging.Action.RELEASE_USE_ITEM) {
                 ItemStack handStack = mc.player.getHeldItem(EnumHand.MAIN_HAND);
@@ -55,7 +54,7 @@ public class BowBomb extends Module {
             }
 
         } else if (event.getPacket() instanceof CPacketPlayerTryUseItem) {
-            CPacketPlayerTryUseItem packet2 = (CPacketPlayerTryUseItem) event.getPacket();
+            CPacketPlayerTryUseItem packet2 = event.getPacket();
 
             if (packet2.getHand() == EnumHand.MAIN_HAND) {
                 ItemStack handStack = mc.player.getHeldItem(EnumHand.MAIN_HAND);

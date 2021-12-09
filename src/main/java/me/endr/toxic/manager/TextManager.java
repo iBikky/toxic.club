@@ -15,7 +15,7 @@ public class TextManager
     public int scaledWidth;
     public int scaledHeight;
     public int scaleFactor;
-    private CustomFont customFont = new CustomFont(new Font("Verdana", 0, 17), true, false);
+    private CustomFont customFont = new CustomFont(new Font("Verdana", Font.PLAIN, 17), true, false);
     private boolean idling;
 
     public TextManager() {

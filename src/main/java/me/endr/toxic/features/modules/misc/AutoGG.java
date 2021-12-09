@@ -15,8 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AutoGG
         extends Module {
     private static AutoGG INSTANCE = new AutoGG();
-    public Setting<String> custom = this.register(new Setting<String>("Custom", "toxic.club too strong"));
-    public Setting<String> test = this.register(new Setting<String>("Test", "null"));
+    public Setting<String> custom = this.register(new Setting<>("Custom", "toxic.club too strong"));
+    public Setting<String> test = this.register(new Setting<>("Test", "null"));
     private ConcurrentHashMap<String, Integer> targetedPlayers = null;
 
     public AutoGG() {

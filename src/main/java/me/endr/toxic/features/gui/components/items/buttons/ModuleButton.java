@@ -19,7 +19,7 @@ public class ModuleButton
         extends Button {
     private final Module module;
     private final ResourceLocation logo = new ResourceLocation("textures/toxic.png");
-    private List<Item> items = new ArrayList<Item>();
+    private List<Item> items = new ArrayList<>();
     private boolean subOpen;
 
     public ModuleButton(Module module) {
@@ -45,7 +45,7 @@ public class ModuleButton
     }
 
     public void initSettings() {
-        ArrayList<Item> newItems = new ArrayList<Item>();
+        ArrayList<Item> newItems = new ArrayList<>();
         if (!this.module.getSettings().isEmpty()) {
             for (Setting setting : this.module.getSettings()) {
                 if (setting.getValue() instanceof Boolean && !setting.getName().equals("Enabled")) {
@@ -73,7 +73,7 @@ public class ModuleButton
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
         if (!this.items.isEmpty()) {
-            if (HUD.getInstance().magenDavid.getValue().booleanValue()) {
+            if (HUD.getInstance().magenDavid.getValue()) {
                 mc.getTextureManager().bindTexture(this.logo);
                 ModuleButton.drawCompleteImage(this.x - 1.5f + (float) this.width - 7.4f, this.y - 2.2f - (float) ToxicGui.getClickGui().getTextOffset(), 8, 8);
             }

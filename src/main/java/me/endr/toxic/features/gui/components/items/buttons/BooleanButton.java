@@ -26,7 +26,7 @@ public class BooleanButton
 
     @Override
     public void update() {
-        this.setHidden(!this.setting.isVisible());
+        this.setHidden(this.setting.isVisible());
     }
 
     @Override
@@ -44,7 +44,7 @@ public class BooleanButton
 
     @Override
     public void toggle() {
-        this.setting.setValue((Boolean) this.setting.getValue() == false);
+        this.setting.setValue(!((Boolean)this.setting.getValue()));
     }
 
     @Override

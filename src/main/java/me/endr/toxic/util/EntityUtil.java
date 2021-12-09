@@ -125,17 +125,17 @@ public class EntityUtil
     public static boolean isMobAggressive(Entity entity) {
         if (entity instanceof EntityPigZombie) {
             if (((EntityPigZombie) entity).isArmsRaised() || ((EntityPigZombie) entity).isAngry()) {
-                return true;
+                return false;
             }
         } else {
             if (entity instanceof EntityWolf) {
-                return ((EntityWolf) entity).isAngry() && !EntityUtil.mc.player.equals(((EntityWolf) entity).getOwner());
+                return !((EntityWolf)entity).isAngry() || EntityUtil.mc.player.equals(((EntityWolf)entity).getOwner());
             }
             if (entity instanceof EntityEnderman) {
                 return ((EntityEnderman) entity).isScreaming();
             }
         }
-        return EntityUtil.isHostileMob(entity);
+        return !EntityUtil.isHostileMob(entity);
     }
 
     public static boolean isNeutralMob(Entity entity) {
@@ -151,7 +151,7 @@ public class EntityUtil
     }
 
     public static boolean isFriendlyMob(Entity entity) {
-        return entity.isCreatureType(EnumCreatureType.CREATURE, false) && !EntityUtil.isNeutralMob(entity) || entity.isCreatureType(EnumCreatureType.AMBIENT, false) || entity instanceof EntityVillager || entity instanceof EntityIronGolem || EntityUtil.isNeutralMob(entity) && !EntityUtil.isMobAggressive(entity);
+        return entity.isCreatureType(EnumCreatureType.CREATURE, false) && !EntityUtil.isNeutralMob(entity) || entity.isCreatureType(EnumCreatureType.AMBIENT, false) || entity instanceof EntityVillager || entity instanceof EntityIronGolem || EntityUtil.isNeutralMob(entity) && EntityUtil.isMobAggressive(entity);
     }
 
     public static boolean isHostileMob(Entity entity) {
@@ -603,7 +603,7 @@ public class EntityUtil
     }
 
     public static Map<String, Integer> getTextRadarPlayers() {
-        Map<String, Integer> output = new HashMap<String, Integer>();
+        Map<String, Integer> output = new HashMap<>();
         DecimalFormat dfHealth = new DecimalFormat("#.#");
         dfHealth.setRoundingMode(RoundingMode.CEILING);
         DecimalFormat dfDistance = new DecimalFormat("#.#");
@@ -636,7 +636,7 @@ public class EntityUtil
                 distanceSB.append("c");
             }
             distanceSB.append(distance);
-            output.put(healthSB.toString() + " " + (Toxic.friendManager.isFriend(player) ? ChatFormatting.AQUA : ChatFormatting.RED) + player.getName() + " " + distanceSB.toString() + " \u00c2\u00a7f0", (int) EntityUtil.mc.player.getDistance(player));
+            output.put(healthSB + " " + (Toxic.friendManager.isFriend(player) ? ChatFormatting.AQUA : ChatFormatting.RED) + player.getName() + " " + distanceSB + " \u00c2\u00a7f0", (int) EntityUtil.mc.player.getDistance(player));
             healthSB.setLength(0);
             distanceSB.setLength(0);
         }

@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Feature
         implements Util {
-    public List<Setting> settings = new ArrayList<Setting>();
+    public List<Setting> settings = new ArrayList<>();
     public TextManager renderer = Toxic.textManager;
     private String name;
 
@@ -51,7 +51,7 @@ public class Feature
     }
 
     public boolean isDisabled() {
-        return !this.isEnabled();
+        return this.isEnabled();
     }
 
     public Setting register(Setting setting) {
@@ -64,7 +64,7 @@ public class Feature
     }
 
     public void unregister(Setting settingIn) {
-        ArrayList<Setting> removeList = new ArrayList<Setting>();
+        ArrayList<Setting> removeList = new ArrayList<>();
         for (Setting setting : this.settings) {
             if (!setting.equals(settingIn)) continue;
             removeList.add(setting);
@@ -92,7 +92,7 @@ public class Feature
     }
 
     public void clearSettings() {
-        this.settings = new ArrayList<Setting>();
+        this.settings = new ArrayList<>();
     }
 }
 

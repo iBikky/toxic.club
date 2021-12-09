@@ -34,14 +34,14 @@ public class UnlimitedSlider
                 if (this.setting.getValue() instanceof Double) {
                     this.setting.setValue((Double) this.setting.getValue() + 1.0);
                 } else if (this.setting.getValue() instanceof Float) {
-                    this.setting.setValue(Float.valueOf(((Float) this.setting.getValue()).floatValue() + 1.0f));
+                    this.setting.setValue((Float)this.setting.getValue() + 1.0f);
                 } else if (this.setting.getValue() instanceof Integer) {
                     this.setting.setValue((Integer) this.setting.getValue() + 1);
                 }
             } else if (this.setting.getValue() instanceof Double) {
                 this.setting.setValue((Double) this.setting.getValue() - 1.0);
             } else if (this.setting.getValue() instanceof Float) {
-                this.setting.setValue(Float.valueOf(((Float) this.setting.getValue()).floatValue() - 1.0f));
+                this.setting.setValue((Float)this.setting.getValue() - 1.0f);
             } else if (this.setting.getValue() instanceof Integer) {
                 this.setting.setValue((Integer) this.setting.getValue() - 1);
             }
@@ -50,7 +50,7 @@ public class UnlimitedSlider
 
     @Override
     public void update() {
-        this.setHidden(!this.setting.isVisible());
+        this.setHidden(this.setting.isVisible());
     }
 
     @Override

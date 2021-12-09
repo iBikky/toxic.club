@@ -10,8 +10,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class ChatModifier
         extends Module {
     private static ChatModifier INSTANCE = new ChatModifier();
-    public Setting<Boolean> clean = this.register(new Setting<Boolean>("NoChatBackground", Boolean.valueOf(false), "Cleans your chat"));
-    public Setting<Boolean> infinite = this.register(new Setting<Boolean>("InfiniteChat", Boolean.valueOf(false), "Makes your chat infinite."));
+    public Setting<Boolean> clean = this.register(new Setting<>("NoChatBackground", Boolean.FALSE, "Cleans your chat"));
+    public Setting<Boolean> infinite = this.register(new Setting<>("InfiniteChat", Boolean.FALSE, "Makes your chat infinite."));
     public boolean check;
 
     public ChatModifier() {

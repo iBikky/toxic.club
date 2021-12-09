@@ -143,9 +143,9 @@ public final class SnowUtil {
         GL11.glLineWidth(1);
         GL11.glBegin(GL11.GL_TRIANGLE_FAN);
 
-        GL11.glVertex2d(0, (1.0F * size));
-        GL11.glVertex2d((1 * size), -(1.0F * size));
-        GL11.glVertex2d(-(1 * size), -(1.0F * size));
+        GL11.glVertex2d(0, (size));
+        GL11.glVertex2d((1 * size), -(size));
+        GL11.glVertex2d(-(1 * size), -(size));
 
         GL11.glEnd();
         GL11.glDisable(GL11.GL_LINE_SMOOTH);
@@ -430,7 +430,7 @@ public final class SnowUtil {
         tessellator.draw();
     }
 
-    public static final void DrawNodusBetterRect(double x, double y, double x1, double y1, int color2, int color) {
+    public static void DrawNodusBetterRect(double x, double y, double x1, double y1, int color2, int color) {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glEnable(GL11.GL_LINE_SMOOTH);
         drawRect((int) x, (int) y, (int) x1, (int) y1, color);
@@ -443,7 +443,7 @@ public final class SnowUtil {
         GL11.glScalef(2F, 2F, 2F);
     }
 
-    public static final void DrawNodusRect(float par0, float par1, float par2, float par3, int par4) {
+    public static void DrawNodusRect(float par0, float par1, float par2, float par3, int par4) {
         float var5;
 
         if (par0 < par2) {
@@ -637,19 +637,19 @@ public final class SnowUtil {
 
     /* ##### UTILITY METHODS ##### */
     public static double getAlphaFromHex(int color) {
-        return ((double) ((color >> 24 & 0xff) / 255F));
+        return (color >> 24 & 0xff) / 255F;
     }
 
     public static double getRedFromHex(int color) {
-        return ((double) ((color >> 16 & 0xff) / 255F));
+        return (color >> 16 & 0xff) / 255F;
     }
 
     public static double getGreenFromHex(int color) {
-        return ((double) ((color >> 8 & 0xff) / 255F));
+        return (color >> 8 & 0xff) / 255F;
     }
 
     public static double getBlueFromHex(int color) {
-        return ((double) ((color & 0xff) / 255F));
+        return (color & 0xff) / 255F;
     }
 
     public static int getScreenWidth() {

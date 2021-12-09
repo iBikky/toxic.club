@@ -25,16 +25,16 @@ public class ConfigManager implements Util {
         String str;
         switch (setting.getType()) {
             case "Boolean":
-                setting.setValue(Boolean.valueOf(element.getAsBoolean()));
+                setting.setValue(element.getAsBoolean());
                 return;
             case "Double":
-                setting.setValue(Double.valueOf(element.getAsDouble()));
+                setting.setValue(element.getAsDouble());
                 return;
             case "Float":
-                setting.setValue(Float.valueOf(element.getAsFloat()));
+                setting.setValue(element.getAsFloat());
                 return;
             case "Integer":
-                setting.setValue(Integer.valueOf(element.getAsInt()));
+                setting.setValue(element.getAsInt());
                 return;
             case "String":
                 str = element.getAsString();
@@ -48,7 +48,7 @@ public class ConfigManager implements Util {
                     EnumConverter converter = new EnumConverter(((Enum) setting.getValue()).getClass());
                     Enum value = converter.doBackward(element);
                     setting.setValue((value == null) ? setting.getDefaultValue() : value);
-                } catch (Exception exception) {
+                } catch (Exception ignored) {
                 }
                 return;
         }

@@ -52,7 +52,7 @@ public class Slider
 
     @Override
     public void update() {
-        this.setHidden(!this.setting.isVisible());
+        this.setHidden(this.setting.isVisible());
     }
 
     private void dragSetting(int mouseX, int mouseY) {
@@ -72,8 +72,8 @@ public class Slider
             double result = (Double) this.setting.getMin() + (double) ((float) this.difference * percent);
             this.setting.setValue((double) Math.round(10.0 * result) / 10.0);
         } else if (this.setting.getValue() instanceof Float) {
-            float result = ((Float) this.setting.getMin()).floatValue() + (float) this.difference * percent;
-            this.setting.setValue(Float.valueOf((float) Math.round(10.0f * result) / 10.0f));
+            float result = (Float)this.setting.getMin() + (float) this.difference * percent;
+            this.setting.setValue((float)Math.round(10.0f * result) / 10.0f);
         } else if (this.setting.getValue() instanceof Integer) {
             this.setting.setValue((Integer) this.setting.getMin() + (int) ((float) this.difference * percent));
         }

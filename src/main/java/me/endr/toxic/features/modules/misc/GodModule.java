@@ -37,16 +37,16 @@ public class GodModule
     private boolean rotating;
     private int rotationPacketsSpoofed;
     private int highestID = -100000;
-    public Setting<Integer> rotations = this.register(new Setting<Integer>("Spoofs", 1, 1, 20));
-    public Setting<Boolean> rotate = this.register(new Setting<Boolean>("Rotate", false));
-    public Setting<Boolean> render = this.register(new Setting<Boolean>("Render", false));
-    public Setting<Boolean> antiIllegal = this.register(new Setting<Boolean>("AntiIllegal", true));
-    public Setting<Boolean> checkPos = this.register(new Setting<Boolean>("CheckPos", false));
-    public Setting<Boolean> oneDot15 = this.register(new Setting<Boolean>("1.15", false));
-    public Setting<Boolean> entitycheck = this.register(new Setting<Boolean>("EntityCheck", false));
-    public Setting<Integer> attacks = this.register(new Setting<Integer>("Attacks", 1, 1, 10));
-    public Setting<Integer> offset = this.register(new Setting<Integer>("Offset", 0, 0, 2));
-    public Setting<Integer> delay = this.register(new Setting<Integer>("Delay", 0, 0, 250));
+    public Setting<Integer> rotations = this.register(new Setting<>("Spoofs", 1, 1, 20));
+    public Setting<Boolean> rotate = this.register(new Setting<>("Rotate", false));
+    public Setting<Boolean> render = this.register(new Setting<>("Render", false));
+    public Setting<Boolean> antiIllegal = this.register(new Setting<>("AntiIllegal", true));
+    public Setting<Boolean> checkPos = this.register(new Setting<>("CheckPos", false));
+    public Setting<Boolean> oneDot15 = this.register(new Setting<>("1.15", false));
+    public Setting<Boolean> entitycheck = this.register(new Setting<>("EntityCheck", false));
+    public Setting<Integer> attacks = this.register(new Setting<>("Attacks", 1, 1, 10));
+    public Setting<Integer> offset = this.register(new Setting<>("Offset", 0, 0, 2));
+    public Setting<Integer> delay = this.register(new Setting<>("Delay", 0, 0, 250));
 
     public GodModule() {
         super("GodModule", "Wow", Module.Category.COMBAT, true, false, false);
@@ -62,7 +62,7 @@ public class GodModule
 
     @Override
     public void onUpdate() {
-        if (this.render.getValue().booleanValue()) {
+        if (this.render.getValue()) {
             for (Entity entity : GodModule.mc.world.loadedEntityList) {
                 if (!(entity instanceof EntityEnderCrystal)) continue;
                 entity.setCustomNameTag(String.valueOf(entity.entityId));
@@ -80,9 +80,9 @@ public class GodModule
     public void onSendPacket(PacketEvent.Send event) {
         CPacketPlayerTryUseItemOnBlock packet;
         if (event.getStage() == 0 && event.getPacket() instanceof CPacketPlayerTryUseItemOnBlock) {
-            packet = (CPacketPlayerTryUseItemOnBlock)event.getPacket();
+            packet = event.getPacket();
             if (GodModule.mc.player.getHeldItem(packet.hand).getItem() instanceof ItemEndCrystal) {
-                if (this.checkPos.getValue().booleanValue() && !BlockUtil.canPlaceCrystal(packet.position, this.entitycheck.getValue(), this.oneDot15.getValue()) || this.checkPlayers()) {
+                if (this.checkPos.getValue() && !BlockUtil.canPlaceCrystal(packet.position, this.entitycheck.getValue(), this.oneDot15.getValue()) || this.checkPlayers()) {
                     return;
                 }
                 this.updateEntityID();
@@ -91,7 +91,7 @@ public class GodModule
                 }
             }
         }
-        if (event.getStage() == 0 && this.rotating && this.rotate.getValue().booleanValue() && event.getPacket() instanceof CPacketPlayer) {
+        if (event.getStage() == 0 && this.rotating && this.rotate.getValue() && event.getPacket() instanceof CPacketPlayer) {
             CPacketPlayer packet2 = event.getPacket();
             packet2.yaw = this.yaw;
             packet2.pitch = this.pitch;
@@ -146,9 +146,9 @@ public class GodModule
     }
 
     private boolean checkPlayers() {
-        if (this.antiIllegal.getValue().booleanValue()) {
+        if (this.antiIllegal.getValue()) {
             for (EntityPlayer player : GodModule.mc.world.playerEntities) {
-                if (!this.checkItem(player.getHeldItemMainhand()) && !this.checkItem(player.getHeldItemOffhand())) continue;
+                if (this.checkItem(player.getHeldItemMainhand()) && this.checkItem(player.getHeldItemOffhand())) continue;
                 return true;
             }
         }
@@ -156,7 +156,7 @@ public class GodModule
     }
 
     private boolean checkItem(ItemStack stack) {
-        return stack.getItem() instanceof ItemBow || stack.getItem() instanceof ItemExpBottle || stack.getItem() == Items.STRING;
+        return !(stack.getItem() instanceof ItemBow) && !(stack.getItem() instanceof ItemExpBottle) && stack.getItem() != Items.STRING;
     }
 
     public void rotateTo(BlockPos pos) {

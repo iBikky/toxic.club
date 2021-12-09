@@ -30,7 +30,7 @@ public class ColorManager {
     }
 
     public int getColorWithAlpha(int alpha) {
-        if (ClickGui.getInstance().rainbow.getValue().booleanValue()) {
+        if (ClickGui.getInstance().rainbow.getValue()) {
             return ColorUtil.rainbow(Component.counter1[0] * ClickGui.getInstance().rainbowHue.getValue()).getRGB();
         }
         return ColorUtil.toRGBA(new Color(this.red, this.green, this.blue, (float) alpha / 255.0f));

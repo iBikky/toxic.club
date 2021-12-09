@@ -109,7 +109,7 @@ public class InventoryUtil
     }
 
     public static List<Integer> findEmptySlots(boolean withXCarry) {
-        ArrayList<Integer> outPut = new ArrayList<Integer>();
+        ArrayList<Integer> outPut = new ArrayList<>();
         for (Map.Entry<Integer, ItemStack> entry : InventoryUtil.getInventoryAndHotbarSlots().entrySet()) {
             if (!entry.getValue().isEmpty && entry.getValue().getItem() != Items.AIR) continue;
             outPut.add(entry.getKey());

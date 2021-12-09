@@ -107,7 +107,7 @@ public class MathUtill
     }
 
     public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map, boolean descending) {
-        LinkedList<Map.Entry<K, V>> list = new LinkedList<Map.Entry<K, V>>(map.entrySet());
+        LinkedList<Map.Entry<K, V>> list = new LinkedList<>(map.entrySet());
         if (descending) {
             list.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
         } else {
@@ -122,7 +122,7 @@ public class MathUtill
 
     public static String getTimeOfDay() {
         Calendar c = Calendar.getInstance();
-        int timeOfDay = c.get(11);
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
         if (timeOfDay < 12) {
             return "Good Morning ";
         }

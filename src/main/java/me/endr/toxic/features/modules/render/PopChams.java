@@ -20,21 +20,21 @@ import org.lwjgl.opengl.GL11;
 import java.awt.*;
 
 public class PopChams extends Module {
-    public static final Setting<Boolean> self = new Setting<Boolean>("Self", false);
-    public static final Setting<Integer> rL = new Setting<Integer>("RedLine", 255, 0, 255);
-    public static final Setting<Integer> gL = new Setting<Integer>("GreenLine", 26, 0, 255);
-    public static final Setting<Integer> bL = new Setting<Integer>("BlueLine", 42, 0, 255);
-    public static final Setting<Integer> aL = new Setting<Integer>("AlphaLine", 42, 0, 255);
+    public static final Setting<Boolean> self = new Setting<>("Self", false);
+    public static final Setting<Integer> rL = new Setting<>("RedLine", 255, 0, 255);
+    public static final Setting<Integer> gL = new Setting<>("GreenLine", 26, 0, 255);
+    public static final Setting<Integer> bL = new Setting<>("BlueLine", 42, 0, 255);
+    public static final Setting<Integer> aL = new Setting<>("AlphaLine", 42, 0, 255);
 
-    public static final Setting<Integer> rF = new Setting<Integer>("RedFill", 255, 0, 255);
-    public static final Setting<Integer> gF = new Setting<Integer>("GreenFill", 26, 0, 255);
-    public static final Setting<Integer> bF = new Setting<Integer>("BlueFill", 42, 0, 255);
-    public static final Setting<Integer> aF = new Setting<Integer>("AlphaFill", 42, 0, 255);
+    public static final Setting<Integer> rF = new Setting<>("RedFill", 255, 0, 255);
+    public static final Setting<Integer> gF = new Setting<>("GreenFill", 26, 0, 255);
+    public static final Setting<Integer> bF = new Setting<>("BlueFill", 42, 0, 255);
+    public static final Setting<Integer> aF = new Setting<>("AlphaFill", 42, 0, 255);
 
-    public static final Setting<Integer> fadestart = new Setting<Integer>("FadeStart", 200, 0, 3000);
-    public static final Setting<Double> fadetime = new Setting<Double>("FadeStart", .5, .0,2d);
-    public static final Setting<Boolean> onlyOneEsp = new Setting<Boolean>("OnlyOneEsp", true);
-    public static final Setting<Boolean> rainbow = new Setting<Boolean>("Rainbow", false);
+    public static final Setting<Integer> fadestart = new Setting<>("FadeStart", 200, 0, 3000);
+    public static final Setting<Double> fadetime = new Setting<>("FadeStart", .5, .0, 2d);
+    public static final Setting<Boolean> onlyOneEsp = new Setting<>("OnlyOneEsp", true);
+    public static final Setting<Boolean> rainbow = new Setting<>("Rainbow", false);
 
     EntityOtherPlayerMP player;
     ModelPlayer playerModel;
@@ -62,7 +62,7 @@ public class PopChams extends Module {
     @SubscribeEvent
     public void onPacketReceived(PacketEvent.Receive event) {
         if (event.getPacket() instanceof SPacketEntityStatus) {
-            final SPacketEntityStatus packet = (SPacketEntityStatus) event.getPacket();
+            final SPacketEntityStatus packet = event.getPacket();
             if (packet.getOpCode() == 35 && packet.getEntity(PopChams.mc.world) != null && (self.getValue() || packet.getEntity(PopChams.mc.world).getEntityId() != PopChams.mc.player.getEntityId())) {
                 final GameProfile profile = new GameProfile(mc.player.getUniqueID(), "");
                 (this.player = new EntityOtherPlayerMP(mc.world, profile)).copyLocationAndAnglesFrom(packet.getEntity(mc.world));

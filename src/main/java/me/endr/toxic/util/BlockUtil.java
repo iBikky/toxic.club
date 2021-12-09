@@ -56,8 +56,7 @@ public class BlockUtil
     public static EnumFacing getFirstFacing(BlockPos pos) {
         Iterator<EnumFacing> iterator = BlockUtil.getPossibleSides(pos).iterator();
         if (iterator.hasNext()) {
-            EnumFacing facing = iterator.next();
-            return facing;
+            return iterator.next();
         }
         return null;
     }
@@ -157,6 +156,7 @@ public class BlockUtil
     public static boolean placeBlockSmartRotate(BlockPos pos, EnumHand hand, boolean rotate, boolean packet, boolean isSneaking) {
         boolean sneaking = false;
         EnumFacing side = BlockUtil.getFirstFacing(pos);
+        assert side != null;
         Command.sendMessage(side.toString());
         if (side == null) {
             return isSneaking;
@@ -349,7 +349,7 @@ public class BlockUtil
     }
 
     public static boolean isBlockUnSafe(Block block) {
-        return unSafeBlocks.contains(block);
+        return !unSafeBlocks.contains(block);
     }
 
     public static Vec3d[] convertVec3ds(Vec3d vec3d, Vec3d[] input) {
@@ -372,7 +372,9 @@ public class BlockUtil
 
     public static boolean isValidBlock(BlockPos pos) {
         Block block = BlockUtil.mc.world.getBlockState(pos).getBlock();
-        return !(block instanceof BlockLiquid) && block.getMaterial(null) != Material.AIR;
+        if (block instanceof BlockLiquid) return false;
+        assert block != null;
+        return block.getMaterial(null) != Material.AIR;
     }
 
     public static boolean isScaffoldPos(BlockPos pos) {

@@ -13,7 +13,7 @@ public class CSGOWatermark extends Module {
     Timer delayTimer = new Timer();
     public Setting<Integer> X = this.register(new Setting("WatermarkX", 10, 0, 300));
     public Setting<Integer> Y = this.register(new Setting("WatermarkY", 10, 0, 300));
-    public Setting<Integer> delay = this.register(new Setting<Object>("Delay", Integer.valueOf(240), Integer.valueOf(0), Integer.valueOf(600)));
+    public Setting<Integer> delay = this.register(new Setting<Object>("Delay", 240, 0, 600));
     public Setting<Integer> saturation = this.register(new Setting<Object>("Saturation", 127, 1, 255));
     public Setting<Integer> brightness = this.register(new Setting<Object>("Brightness", 100, 0, 255));
     public float hue;

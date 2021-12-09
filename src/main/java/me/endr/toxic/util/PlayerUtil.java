@@ -94,7 +94,7 @@ public class PlayerUtil implements Util {
                 JsonObject node = e.getAsJsonObject();
                 String name = node.get("name").getAsString();
                 long changedAt = node.has("changedToAt") ? node.get("changedToAt").getAsLong() : 0L;
-                temp.add(name + "Â§8" + (new Date(changedAt)).toString());
+                temp.add(name + "Â§8" + (new Date(changedAt)));
             }
             Collections.sort(temp);
             return temp;
@@ -131,8 +131,7 @@ public class PlayerUtil implements Util {
             }
             scanner.close();
             String json = builder.toString();
-            JsonElement data = PARSER.parse(json);
-            return data;
+            return PARSER.parse(json);
         } finally {
             if (connection != null)
                 connection.disconnect();

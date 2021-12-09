@@ -25,10 +25,6 @@ public class URLReader {
             }
         } catch (Exception e) {
 
-            /**
-             * Optional logging below.
-             */
-
             //FMLLog.log.info(e);
         }
         return s;

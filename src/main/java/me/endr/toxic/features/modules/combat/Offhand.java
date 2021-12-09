@@ -28,15 +28,15 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class Offhand
         extends Module {
     private static Offhand instance;
-    private final Queue<InventoryUtil.Task> taskList = new ConcurrentLinkedQueue<InventoryUtil.Task>();
+    private final Queue<InventoryUtil.Task> taskList = new ConcurrentLinkedQueue<>();
     private final Timer timer = new Timer();
     private final Timer secondTimer = new Timer();
-    public Setting<Boolean> crystal = this.register(new Setting<Boolean>("Crystal", true));
-    public Setting<Float> crystalHealth = this.register(new Setting<Float>("CrystalHP", Float.valueOf(13.0f), Float.valueOf(0.1f), Float.valueOf(36.0f)));
-    public Setting<Float> crystalHoleHealth = this.register(new Setting<Float>("CrystalHoleHP", Float.valueOf(3.5f), Float.valueOf(0.1f), Float.valueOf(36.0f)));
-    public Setting<Boolean> gapple = this.register(new Setting<Boolean>("Gapple", true));
-    public Setting<Boolean> armorCheck = this.register(new Setting<Boolean>("ArmorCheck", true));
-    public Setting<Integer> actions = this.register(new Setting<Integer>("Packets", 4, 1, 4));
+    public Setting<Boolean> crystal = this.register(new Setting<>("Crystal", true));
+    public Setting<Float> crystalHealth = this.register(new Setting<>("CrystalHP", 13.0f, 0.1f, 36.0f));
+    public Setting<Float> crystalHoleHealth = this.register(new Setting<>("CrystalHoleHP", 3.5f, 0.1f, 36.0f));
+    public Setting<Boolean> gapple = this.register(new Setting<>("Gapple", true));
+    public Setting<Boolean> armorCheck = this.register(new Setting<>("ArmorCheck", true));
+    public Setting<Integer> actions = this.register(new Setting<>("Packets", 4, 1, 4));
     public Mode2 currentMode = Mode2.TOTEMS;
     public int totems = 0;
     public int crystals = 0;
@@ -149,25 +149,25 @@ public class Offhand
 
     public void doSwitch() {
         this.currentMode = Mode2.TOTEMS;
-        if (this.gapple.getValue().booleanValue() && Offhand.mc.player.getHeldItemMainhand().getItem() instanceof ItemSword && Offhand.mc.gameSettings.keyBindUseItem.isKeyDown()) {
+        if (this.gapple.getValue() && Offhand.mc.player.getHeldItemMainhand().getItem() instanceof ItemSword && Offhand.mc.gameSettings.keyBindUseItem.isKeyDown()) {
             this.currentMode = Mode2.GAPPLES;
-        } else if (this.currentMode != Mode2.CRYSTALS && this.crystal.getValue().booleanValue() && (EntityUtil.isSafe(Offhand.mc.player) && EntityUtil.getHealth(Offhand.mc.player, true) > this.crystalHoleHealth.getValue().floatValue() || EntityUtil.getHealth(Offhand.mc.player, true) > this.crystalHealth.getValue().floatValue())) {
+        } else if (this.currentMode != Mode2.CRYSTALS && this.crystal.getValue() && (EntityUtil.isSafe(Offhand.mc.player) && EntityUtil.getHealth(Offhand.mc.player, true) > this.crystalHoleHealth.getValue() || EntityUtil.getHealth(Offhand.mc.player, true) > this.crystalHealth.getValue())) {
             this.currentMode = Mode2.CRYSTALS;
         }
         if (this.currentMode == Mode2.CRYSTALS && this.crystals == 0) {
             this.setMode(Mode2.TOTEMS);
         }
-        if (this.currentMode == Mode2.CRYSTALS && (!EntityUtil.isSafe(Offhand.mc.player) && EntityUtil.getHealth(Offhand.mc.player, true) <= this.crystalHealth.getValue().floatValue() || EntityUtil.getHealth(Offhand.mc.player, true) <= this.crystalHoleHealth.getValue().floatValue())) {
+        if (this.currentMode == Mode2.CRYSTALS && (!EntityUtil.isSafe(Offhand.mc.player) && EntityUtil.getHealth(Offhand.mc.player, true) <= this.crystalHealth.getValue() || EntityUtil.getHealth(Offhand.mc.player, true) <= this.crystalHoleHealth.getValue())) {
             if (this.currentMode == Mode2.CRYSTALS) {
                 this.switchedForHealthReason = true;
             }
             this.setMode(Mode2.TOTEMS);
         }
-        if (this.switchedForHealthReason && (EntityUtil.isSafe(Offhand.mc.player) && EntityUtil.getHealth(Offhand.mc.player, true) > this.crystalHoleHealth.getValue().floatValue() || EntityUtil.getHealth(Offhand.mc.player, true) > this.crystalHealth.getValue().floatValue())) {
+        if (this.switchedForHealthReason && (EntityUtil.isSafe(Offhand.mc.player) && EntityUtil.getHealth(Offhand.mc.player, true) > this.crystalHoleHealth.getValue() || EntityUtil.getHealth(Offhand.mc.player, true) > this.crystalHealth.getValue())) {
             this.setMode(Mode2.CRYSTALS);
             this.switchedForHealthReason = false;
         }
-        if (this.currentMode == Mode2.CRYSTALS && this.armorCheck.getValue().booleanValue() && (Offhand.mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() == Items.AIR || Offhand.mc.player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() == Items.AIR || Offhand.mc.player.getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem() == Items.AIR || Offhand.mc.player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() == Items.AIR)) {
+        if (this.currentMode == Mode2.CRYSTALS && this.armorCheck.getValue() && (Offhand.mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() == Items.AIR || Offhand.mc.player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() == Items.AIR || Offhand.mc.player.getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem() == Items.AIR || Offhand.mc.player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() == Items.AIR)) {
             this.setMode(Mode2.TOTEMS);
         }
         if (Offhand.mc.currentScreen instanceof GuiContainer && !(Offhand.mc.currentScreen instanceof GuiInventory)) {

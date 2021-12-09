@@ -7,16 +7,7 @@ public class SystemUtil {
 
     public static String getSystemInfo() {
 
-        /**
-         * [OPTIONAL]
-         * Your main mod configuration folder, if you'd like to add configuration folder checks.
-         */
-
         // String mainPath = "hwid-auth-mod/";
-
-        /**
-         * System properties.
-         */
 
         return DigestUtils.sha256Hex(DigestUtils.sha256Hex(System.getenv("os")
                 + System.getProperty("os.name")

@@ -23,12 +23,12 @@ import net.minecraft.util.math.Vec3d;
 
 public class AutoMinecart
         extends Module {
-    private final Setting<Boolean> web = this.register(new Setting<Boolean>("Web", Boolean.FALSE));
-    private final Setting<Boolean> rotate = this.register(new Setting<Boolean>("Rotate", Boolean.FALSE));
-    private final Setting<Boolean> packet = this.register(new Setting<Boolean>("PacketPlace", Boolean.FALSE));
-    private final Setting<Integer> blocksPerTick = this.register(new Setting<Integer>("BlocksPerTick", 1, 1, 4));
-    private final Setting<Integer> delay = this.register(new Setting<Integer>("Carts", 20, 0, 50));
-    public Setting<Float> minHP = this.register(new Setting<Float>("MinHP", Float.valueOf(4.0f), Float.valueOf(0.0f), Float.valueOf(36.0f)));
+    private final Setting<Boolean> web = this.register(new Setting<>("Web", Boolean.FALSE));
+    private final Setting<Boolean> rotate = this.register(new Setting<>("Rotate", Boolean.FALSE));
+    private final Setting<Boolean> packet = this.register(new Setting<>("PacketPlace", Boolean.FALSE));
+    private final Setting<Integer> blocksPerTick = this.register(new Setting<>("BlocksPerTick", 1, 1, 4));
+    private final Setting<Integer> delay = this.register(new Setting<>("Carts", 20, 0, 50));
+    public Setting<Float> minHP = this.register(new Setting<>("MinHP", 4.0f, 0.0f, 36.0f));
     int wait;
     int waitFlint;
     int originalSlot;
@@ -66,7 +66,7 @@ public class AutoMinecart
         int flintSlot = InventoryUtil.getItemHotbar(Items.FLINT_AND_STEEL);
         int railSlot = InventoryUtil.findHotbarBlock(Blocks.ACTIVATOR_RAIL);
         int picSlot = InventoryUtil.getItemHotbar(Items.DIAMOND_PICKAXE);
-        if (tntSlot == -1 || railSlot == -1 || flintSlot == -1 || picSlot == -1 || this.web.getValue().booleanValue() && webSlot == -1) {
+        if (tntSlot == -1 || railSlot == -1 || flintSlot == -1 || picSlot == -1 || this.web.getValue() && webSlot == -1) {
             Command.sendMessage("<" + this.getDisplayName() + "> " + ChatFormatting.RED + "No (tnt minecart/activator rail/flint/pic/webs) in hotbar disabling...");
             this.toggle();
         }
@@ -86,7 +86,7 @@ public class AutoMinecart
                 BlockUtil.rightClickBlock(pos.down(), hitVec, EnumHand.MAIN_HAND, EnumFacing.UP, this.packet.getValue());
                 this.wait = 0;
             }
-            if (this.web.getValue().booleanValue() && this.wait != 0 && AutoMinecart.mc.world.getBlockState(pos).getBlock() == Blocks.ACTIVATOR_RAIL && !target.isInWeb && (BlockUtil.isPositionPlaceable(pos.up(), false) == 1 || BlockUtil.isPositionPlaceable(pos.up(), false) == 3) && AutoMinecart.mc.world.getEntitiesWithinAABB(EntityMinecartTNT.class, new AxisAlignedBB(pos.up())).isEmpty()) {
+            if (this.web.getValue() && this.wait != 0 && AutoMinecart.mc.world.getBlockState(pos).getBlock() == Blocks.ACTIVATOR_RAIL && !target.isInWeb && (BlockUtil.isPositionPlaceable(pos.up(), false) == 1 || BlockUtil.isPositionPlaceable(pos.up(), false) == 3) && AutoMinecart.mc.world.getEntitiesWithinAABB(EntityMinecartTNT.class, new AxisAlignedBB(pos.up())).isEmpty()) {
                 InventoryUtil.switchToHotbarSlot(webSlot, false);
                 BlockUtil.placeBlock(pos.up(), EnumHand.MAIN_HAND, this.rotate.getValue(), this.packet.getValue(), false);
             }
@@ -130,7 +130,7 @@ public class AutoMinecart
         EntityPlayer target = null;
         double distance = Math.pow(6.0, 2.0) + 1.0;
         for (EntityPlayer player : AutoMinecart.mc.world.playerEntities) {
-            if (EntityUtil.isntValid(player, 6.0) || player.isInWater() || player.isInLava() || !EntityUtil.isTrapped(player, false, false, false, false, false) || player.getHealth() + player.getAbsorptionAmount() > this.minHP.getValue().floatValue())
+            if (EntityUtil.isntValid(player, 6.0) || player.isInWater() || player.isInLava() || !EntityUtil.isTrapped(player, false, false, false, false, false) || player.getHealth() + player.getAbsorptionAmount() > this.minHP.getValue())
                 continue;
             if (target == null) {
                 target = player;
