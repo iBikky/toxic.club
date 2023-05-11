@@ -5,4 +5,4 @@
 [![Downloads](https://img.shields.io/github/downloads/iBikky/toxic.club/total?color=9900ee)](https://github.com/iBikky/toxic.club/releases/tag/0.2)
 
 # toxic.club
-dead asf oyvey skid
+1.12 client aimed at crystal pvp 
