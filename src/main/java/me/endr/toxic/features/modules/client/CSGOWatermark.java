@@ -1,5 +1,7 @@
 package me.endr.toxic.features.modules.client;
 
+// imports
+
 import me.endr.toxic.Toxic;
 import me.endr.toxic.event.events.Render2DEvent;
 import me.endr.toxic.features.modules.Module;
@@ -13,9 +15,11 @@ public class CSGOWatermark extends Module {
     Timer delayTimer = new Timer();
     public Setting<Integer> X = this.register(new Setting("WatermarkX", 10, 0, 300));
     public Setting<Integer> Y = this.register(new Setting("WatermarkY", 10, 0, 300));
+    public Setting<Integer> Z = this.register(new Setting("WatermarkZ", 10, 0, 300));
     public Setting<Integer> delay = this.register(new Setting<Object>("Delay", Integer.valueOf(240), Integer.valueOf(0), Integer.valueOf(600)));
     public Setting<Integer> saturation = this.register(new Setting<Object>("Saturation", 127, 1, 255));
     public Setting<Integer> brightness = this.register(new Setting<Object>("Brightness", 100, 0, 255));
+
     public float hue;
     public int red = 1;
     public int green = 1;
@@ -23,7 +27,7 @@ public class CSGOWatermark extends Module {
 
     private String message = "";
     public CSGOWatermark() {
-        super("CSGOWatermark", "noat em cee actually makes something", Module.Category.CLIENT, true, false, false);
+        super("Watermark", "noatmc", Module.Category.CLIENT, true, false, false);
     }
 
     @Override

@@ -129,7 +129,7 @@ public class Toxic {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        Display.setTitle("toxic.club v0.2");
+        Display.setTitle("Minecraft 1.12.2");
         Toxic.load();
     }
 }

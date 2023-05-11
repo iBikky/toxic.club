@@ -19,7 +19,7 @@ public class Replenish
     private final ArrayList<Item> Hotbar = new ArrayList();
 
     public Replenish() {
-        super("Replenish", "Replenishes your hotbar", Module.Category.PLAYER, false, false, false);
+        super("AutoStackFill", "Replenishes your hotbar", Module.Category.PLAYER, false, false, false);
     }
 
     @Override
