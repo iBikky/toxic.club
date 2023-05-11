@@ -6,3 +6,7 @@
 
 # toxic.club
 1.12 client aimed at crystal pvp 
+
+
+
+current gui/modules - https://cdn.discordapp.com/attachments/949235124950663168/1106044785480966144/image.png
