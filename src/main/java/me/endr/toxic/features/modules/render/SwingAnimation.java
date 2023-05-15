@@ -1,6 +1,5 @@
 package me.endr.toxic.features.modules.render;
 
-import me.endr.toxic.features.command.Command;
 import me.endr.toxic.features.modules.Module;
 import me.endr.toxic.features.setting.Setting;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,9 +7,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.RenderSpecificHandEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import static org.lwjgl.opengl.GL11.glRotatef;
-
-public class Animations extends Module {
+public class SwingAnimation extends Module {
     public static Setting<AnimationVersion> AnimationsVersion;
     public static Setting<Boolean> playersDisableAnimations;
     public static Setting<Boolean> changeMainhand;
@@ -20,8 +17,8 @@ public class Animations extends Module {
     public static Setting<Integer> changeSwing;
     public static Setting<Integer> swingDelay;
 
-    public Animations() { 
-        super("SwingAnimtion", "Allows you to change animations in your hand", Module.Category.RENDER, true, false, false);
+    public SwingAnimation() {
+        super("SwingAnimation", "Allows you to change animations in your hand", Module.Category.RENDER, true, false, false);
         AnimationsVersion = this.register(new Setting<AnimationVersion>("Version", AnimationVersion.OneDotEight));
         playersDisableAnimations = this.register(new Setting<Boolean>("Disable Animations", false));
         changeMainhand = this.register(new Setting<Boolean>("Change Mainhand", true));
@@ -35,23 +32,23 @@ public class Animations extends Module {
     @Override
     public void onUpdate() {
         if (playersDisableAnimations.getValue().booleanValue()) {
-            for (EntityPlayer player : Animations.mc.world.playerEntities) {
+            for (EntityPlayer player : SwingAnimation.mc.world.playerEntities) {
                 player.limbSwing = Float.intBitsToFloat(Float.floatToIntBits(1.8755627E38f) ^ 0x7F0D1A06);
                 player.limbSwingAmount = Float.intBitsToFloat(Float.floatToIntBits(6.103741E37f) ^ 0x7E37AD83);
                 player.prevLimbSwingAmount = Float.intBitsToFloat(Float.floatToIntBits(4.8253957E37f) ^ 0x7E11357F);
             }
         }
-        if (changeMainhand.getValue().booleanValue() && Animations.mc.entityRenderer.itemRenderer.equippedProgressMainHand != mainhand.getValue().floatValue()) {
-            Animations.mc.entityRenderer.itemRenderer.equippedProgressMainHand = mainhand.getValue().floatValue();
-            Animations.mc.entityRenderer.itemRenderer.itemStackMainHand = Animations.mc.player.getHeldItemMainhand();
+        if (changeMainhand.getValue().booleanValue() && SwingAnimation.mc.entityRenderer.itemRenderer.equippedProgressMainHand != mainhand.getValue().floatValue()) {
+            SwingAnimation.mc.entityRenderer.itemRenderer.equippedProgressMainHand = mainhand.getValue().floatValue();
+            SwingAnimation.mc.entityRenderer.itemRenderer.itemStackMainHand = SwingAnimation.mc.player.getHeldItemMainhand();
         }
-        if (changeOffhand.getValue().booleanValue() && Animations.mc.entityRenderer.itemRenderer.equippedProgressOffHand != offhand.getValue().floatValue()) {
-            Animations.mc.entityRenderer.itemRenderer.equippedProgressOffHand = offhand.getValue().floatValue();
-            Animations.mc.entityRenderer.itemRenderer.itemStackOffHand = Animations.mc.player.getHeldItemOffhand();
+        if (changeOffhand.getValue().booleanValue() && SwingAnimation.mc.entityRenderer.itemRenderer.equippedProgressOffHand != offhand.getValue().floatValue()) {
+            SwingAnimation.mc.entityRenderer.itemRenderer.equippedProgressOffHand = offhand.getValue().floatValue();
+            SwingAnimation.mc.entityRenderer.itemRenderer.itemStackOffHand = SwingAnimation.mc.player.getHeldItemOffhand();
         }
-        if (AnimationsVersion.getValue() == AnimationVersion.OneDotEight && (double)Animations.mc.entityRenderer.itemRenderer.prevEquippedProgressMainHand >= 0.9) {
-            Animations.mc.entityRenderer.itemRenderer.equippedProgressMainHand = 1.0f;
-            Animations.mc.entityRenderer.itemRenderer.itemStackMainHand = Animations.mc.player.getHeldItemMainhand();
+        if (AnimationsVersion.getValue() == AnimationVersion.OneDotEight && (double) SwingAnimation.mc.entityRenderer.itemRenderer.prevEquippedProgressMainHand >= 0.9) {
+            SwingAnimation.mc.entityRenderer.itemRenderer.equippedProgressMainHand = 1.0f;
+            SwingAnimation.mc.entityRenderer.itemRenderer.itemStackMainHand = SwingAnimation.mc.player.getHeldItemMainhand();
         }
     }
 

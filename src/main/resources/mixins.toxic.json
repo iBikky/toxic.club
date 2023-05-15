@@ -5,6 +5,7 @@
   "refmap": "mixins.toxic.refmap.json",
   "mixins": [
     "MixinBlockLiquid",
+    "MixinEntityLivingBase",
     "MixinEntityPlayer",
     "MixinEntityPlayerSP",
     "MixinEntityRenderer",

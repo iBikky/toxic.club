@@ -1,4 +1,4 @@
-package me.endr.toxic.features.modules.player;
+package me.endr.toxic.features.modules.combat;
 
 import me.endr.toxic.features.modules.Module;
 import me.endr.toxic.features.setting.Bind;
@@ -22,7 +22,7 @@ public class SilentXP
     private boolean on;
 
     public SilentXP() {
-        super("KeyXP", "Silent XP", Module.Category.PLAYER, false, false, false);
+        super("KeyXP", "Silent XP", Category.COMBAT, false, false, false);
     }
 
     @Override
